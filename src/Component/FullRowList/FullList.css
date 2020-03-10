@@ -1,0 +1,19 @@
+
+
+.full-list-of-students {
+	position: relative;
+}
+
+.arr-student-deleted {
+	display: none;
+	width: 130px;
+	height: 70px;
+	padding: 4px;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	z-index: 5;
+	background-color: #F5FFFA;
+	text-align: center;
+	line-height: 16px;
+}

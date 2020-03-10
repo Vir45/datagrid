@@ -1,0 +1,177 @@
+.filter-table {
+	display: flex;
+	justify-content: flex-start;
+	width: 1450px;
+	padding: 6px;
+	box-sizing: border-box;
+	font-size: 15px;
+	font-weight: 700;
+	border: 0.2px solid #DCDCDC;
+	background: #F5FFFA;
+}
+
+.row-1 {
+	margin-bottom: 15px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.search-all-table {
+	display: flex;
+	align-items: center;
+}
+
+.search-all-input {
+	margin: 0 5px;
+	height: 20px;
+	width: 250px;
+	border-radius: 5px;
+}
+
+.search-all-button-block-search {
+	width: 80px;
+	height: 25px;
+	border: none;
+	background-color:#1890ff;
+	color: white;
+	border-radius: 5px;
+}
+
+.filter-table>div {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.about-block {
+	display: flex;
+	align-items: center;
+}
+
+.column-search {
+	display: flex;
+	align-items: center;
+	margin-right: 15px;
+	position: relative;
+}
+
+.search-block {
+	display: none;
+	position: absolute;
+	padding: 5px;
+	box-sizing: border-box;
+	top: 33px;
+	left: -144px;
+	z-index: 5;
+	background: #FFFAFA;
+	border: 1px solid #C0C0C0;
+}
+
+.search-button-block {
+	margin-top: 5px;
+}
+
+.search-button-block-search {
+	margin-right: 5px;
+	width: 80px;
+	height: 25px;
+	border: none;
+	background-color:#1890ff;
+	color: white;
+	border-radius: 5px;
+}
+
+.search-button-block-reset {
+	margin-right: 5px;
+	width: 80px;
+	height: 25px;
+	border: none;
+	background-color:#A9A9A9;
+	color: black;
+	border-radius: 5px;
+}
+
+.column-name {
+	margin-right: 10px;
+}
+
+.column-direction {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.column-direction button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	background: none;
+	border: none;
+	font-size: 10px;
+}
+
+.button-up {
+	margin-bottom: 5px;
+}
+
+.filter-table .active .column-name {
+	color: #1890ff;
+}
+
+.filter-table .active .active-direction {
+	color: #1890ff;
+}
+
+.select-role {
+	width: 106px;
+	border: none;
+	font-weight: 700;
+	font-size: 15px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.active-select {
+	border: 1px solid #1890ff;
+}
+
+.button-search {
+	border: none;
+	background: none;
+}
+
+
+.position-filter {
+	width: 4.5%;
+}
+
+.name-filter {
+	width: 14%;
+}
+
+.github-filter {
+	width: 21.5%;
+}
+
+.locationName-filter {
+	width: 9%;
+}
+
+.role-filter {
+	width: 14.5%;
+}
+
+.date-filter {
+	width: 12%;
+}
+
+.score-filter {
+	width: 7.5%;
+}
+
+.student-companyName {
+	width: 18%;
+}

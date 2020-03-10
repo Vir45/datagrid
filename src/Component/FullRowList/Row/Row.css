@@ -1,0 +1,135 @@
+.student {
+	position: relative;
+	display: flex;
+  align-items: flex-start;
+	justify-content: flex-start;
+	padding-top: 10px;
+	height: 30px;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	overflow: hidden;
+	border-bottom: 0.2px solid #DCDCDC;
+}
+
+.student.disactive {
+	color: #C0C0C0;
+}
+
+.student:hover{
+	background: lightgray !important;
+	cursor: pointer;
+}
+
+.student-deleted {
+	display: none;
+	padding: 4px;
+	flex-direction: column;
+	align-items: center;
+	position: fixed;
+	z-index: 5;
+	background-color: #F5FFFA;
+}
+
+.button-deleted-block {
+	 margin-top: 10px;
+	 display: flex;
+	 justify-content: center;
+}
+
+.button-deleted-block button {
+	border: none;
+	background: none;
+}
+
+.delet {
+	margin-right: 10px;
+}
+
+
+.student-position {
+	padding-left: 5px;
+	width: 5%;
+	display: flex;
+  align-items: center;
+	justify-content: flex-start;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	overflow: hidden;
+}
+
+.student-name {
+	width: 15%;
+	display: flex;
+  align-items: center;
+	justify-content: flex-start;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	overflow: hidden;
+}
+
+.student-name img {
+	width: 25px;
+	height: 25px;
+	margin-right: 10px;
+	border-radius: 50%;
+}
+
+.student-githubId {
+	width: 23%;
+	display: flex;
+  align-items: center;
+	justify-content: flex-start;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	overflow: hidden;
+}
+
+.student-locationName {
+	width: 10%;
+	display: flex;
+  align-items: center;
+	justify-content: flex-start;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	overflow: hidden;
+}
+
+.student-role {
+	width: 15%;
+	display: flex;
+  align-items: center;
+	justify-content: flex-start;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	overflow: hidden;
+}
+
+.student-date {
+	width: 13%;
+	display: flex;
+  align-items: center;
+	justify-content: flex-start;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	overflow: hidden;
+}
+
+.student-score {
+	width: 8%;
+	display: flex;
+  align-items: center;
+	justify-content: flex-start;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	overflow: hidden;
+}
+
+.student-companyName {
+	width: 18%;
+	display: flex;
+  align-items: center;
+	justify-content: flex-start;
+	text-overflow: ellipsis;
+	white-space: nowrap; 
+	overflow: hidden;
+}
