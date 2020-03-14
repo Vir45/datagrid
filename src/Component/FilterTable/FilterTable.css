@@ -109,7 +109,7 @@
 	padding: 0;
 	background: none;
 	border: none;
-	font-size: 10px;
+	font-size: 13px;
 }
 
 .button-up {
@@ -124,7 +124,20 @@
 	color: #1890ff;
 }
 
-.select-role {
+.filter-table .shift-active .column-name {
+	color: #1890ff;
+}
+
+.filter-table .shift-active .active-direction {
+	color: #1890ff;
+}
+
+.role-filter .column-direction {
+	box-sizing: border-box;
+  padding: 2px;
+}
+
+/* .select-role {
 	width: 106px;
 	border: none;
 	font-weight: 700;
@@ -136,7 +149,7 @@
 
 .active-select {
 	border: 1px solid #1890ff;
-}
+} */
 
 .button-search {
 	border: none;

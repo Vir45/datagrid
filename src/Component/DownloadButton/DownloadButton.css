@@ -1,0 +1,13 @@
+.download-block {
+	margin-bottom: 30px;
+	display: flex;
+	align-items: center;
+	font-weight: 600;
+}
+
+.download-button {
+	border: none;
+	background: none;
+	color: white;
+  border-radius: 8px;
+}

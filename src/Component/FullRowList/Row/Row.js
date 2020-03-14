@@ -2,15 +2,25 @@ import React, {useEffect} from "react";
 import './Row.css';
 import CheckTwoToneIcon from '@material-ui/icons/CheckTwoTone';
 import ClearTwoToneIcon from '@material-ui/icons/ClearTwoTone';
+// import LetterAvatars from './LetterAvatar/Avatar';
 
 const Row = ({ style, data, onDeletStudent, activeColumn }) => {
 	const formatter = new Intl.DateTimeFormat("ru");
 	const adress = `mailto:${data.githubId}`;
 	const isActive = data.isActive ? 'student' : 'student disactive';
 	const url = data.avatar;
+	// const letterForAvatar = data.name.split(' ').map(item => item[0].toUpperCase()).join('').slice(0, 2);
 
 	useEffect(() => {
-		console.log(document.body.querySelector('.student'))
+		
+		const student = Array.from(document.body.querySelectorAll('.student'));
+		const arrOfActive = Array.from(document.body.querySelectorAll('.active-column'));
+		arrOfActive.forEach(item => item.classList.remove('active-column'));
+
+		if(activeColumn.length > 0) {
+			const arrBlockAboutStudent = student.map((item) => Array.from(item.children).filter((item) => item.classList[0].includes(activeColumn) === true));
+			arrBlockAboutStudent.forEach(item => item[0].classList.add('active-column'));
+		}
 	})
 
 	const getActive = (event) => {
@@ -76,5 +86,8 @@ const Row = ({ style, data, onDeletStudent, activeColumn }) => {
 		</div>
 	)
 }
+
+
+
 
 export default Row;

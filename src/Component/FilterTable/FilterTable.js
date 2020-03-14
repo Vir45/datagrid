@@ -4,6 +4,7 @@ import './FilterTable.css'
 import Switches from './FilterSwitch/FilterSwitch';
 import SearchTable from './SearchTable/SearchTable';
 import SearchInAllTable from './SearchInAllTable/SearchInAllTable';
+import MultipleSelect from './MultipleSelect/MultipleSelect';
 
 class FilterlTable extends React.Component {
 	constructor(props) {
@@ -12,14 +13,15 @@ class FilterlTable extends React.Component {
 		this.state = {
 			activeFilter: '',
 			direction: '',
-			active: 'true',
+			activeStudent: 'true',
 		}
 	}
 
 	getActive = (elem, activeDirection) => {
-		
+
 		const arr = Array.from(document.body.querySelector('.filter-table').children);
 		arr.forEach(item => { if (item.classList.contains('active')) item.classList.remove('active') });
+		arr.forEach(item => { if (item.classList.contains('shift-active')) item.classList.remove('shift-active') });
 
 		elem.classList.add('active');
 
@@ -39,6 +41,41 @@ class FilterlTable extends React.Component {
 	}
 
 	startSort = (event) => {
+
+		if (event.shiftKey && this.state.direction.length > 0) {
+
+			const activeSort = this.state.activeFilter;
+			const activeDirection = this.state.direction;
+			let target = event.target.closest('button');
+			if (!target) return;
+			const newActiveElem = event.currentTarget;
+			const direction = target.value.split(', ');
+			const newActiveactiveSort = direction[0];
+			const newActiveDirection = direction[1];
+		
+      const arr = Array.from(document.body.querySelector('.filter-table').children);
+		  arr.forEach(item => { if (item.classList.contains('shift-active')) item.classList.remove('shift-active') });
+			newActiveElem.classList.add('shift-active');
+			const arrOfDirection = Array.from(newActiveElem.querySelector('.column-direction').children);
+
+			for (let item of arrOfDirection) {
+				if (item.classList.contains('active-direction')) {
+					item.classList.remove('active-direction')
+				}
+			}
+
+			for (let item of arrOfDirection) {
+				if (item.value.split(', ')[1] === newActiveDirection) {
+					item.classList.add('active-direction')
+				}
+			}
+
+			this.props.onSortSfift(activeSort, activeDirection, newActiveactiveSort, newActiveDirection);
+			event.target.blur();
+
+			return;
+		}
+
 		let target = event.target.closest('button');
 		if (!target) return;
 		const direction = target.value.split(', ');
@@ -50,42 +87,46 @@ class FilterlTable extends React.Component {
 		event.target.blur();
 	}
 
-	startSelect = (event) => {
-		let value = event.target.value;
-		if (value === "all students") {
-			this.props.onStartSelect(value);
-			this.props.onMount();
-			event.target.classList.remove('active-select');
-			event.target.blur();
-			// const arr = Array.from(document.body.querySelector('.filter-table').children);
-			// arr.forEach(item => { if (item.classList.contains('active')) item.classList.remove('active') });
+	startSelect = (value) => {
+
+		if(value.length === 0) {
+			value = ["all students"];
+		}
+
+		if (value.includes('all students')) {
+			this.props.onStartSelect([])
+			if (this.state.activeStudent) {
+				this.props.onMount();
+			} else {
+				this.props.onMountAll();
+			}
+			document.body.querySelector('.role-filter .column-direction').style.border ='none'
 			return
 		}
-		event.target.classList.add('active-select');
 
-		this.props.onStartSelect(value);
+		this.props.onStartSelect(value)
 
-		if (this.state.active) {
+		document.body.querySelector('.role-filter .column-direction').style.border ='1px solid #1890ff '
+		// event.target.classList.add('active-select');
+
+		if (this.state.activeStudent) {
 			this.props.onMount();
 		} else {
 			this.props.onMountAll();
 		}
-		
+
 		this.props.onSelect(value);
-		
-		event.target.blur();
-		// const arr = Array.from(document.body.querySelector('.filter-table').children);
-		// arr.forEach(item => { if (item.classList.contains('active')) item.classList.remove('active') });
+
 	}
 
 	getAllstudents = () => {
 		this.props.onMountAll();
-		this.setState({ active: false });
+		this.setState({ activeStudent: false });
 	}
 
 	getActivestudents = () => {
 		this.props.onMount();
-		this.setState({ active: true });
+		this.setState({ activeStudent: true });
 	}
 
 	serchClick = (event) => {
@@ -108,7 +149,7 @@ class FilterlTable extends React.Component {
 
 	getData = (event) => {
 		event.stopPropagation();
-		if (this.state.active) {
+		if (this.state.activeStudent) {
 			this.props.onMount();
 		} else {
 			this.props.onMountAll();
@@ -183,12 +224,13 @@ class FilterlTable extends React.Component {
 					<div className="role-filter">
 						<div className="about-block">
 							<div className="column-direction">
-								<select onChange={this.startSelect} className="select-role">
+								<MultipleSelect onselect={this.startSelect} />
+								{/* <select onChange={this.startSelect} className="select-role">
 									<option value="all students">all students</option>
 									<option value="student">student</option>
 									<option value="activist">activist</option>
 									<option value="experienced student">experienced student</option>
-								</select>
+								</select> */}
 							</div>
 						</div>
 					</div>

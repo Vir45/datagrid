@@ -1,0 +1,32 @@
+.makeStyles-formControl-74 {
+	margin: 0 !important;
+	max-width: 150px;
+	min-width: 120px;
+}
+
+.MuiSelect-selectMenu {
+	height: auto;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-weight: 700 !important;
+}
+
+.MuiSelect-icon {
+	top: calc(50% - 12px);
+	color: rgba(0, 0, 0, 1.54) !important;
+	right: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.MuiInput-underline:before {
+	left: 0;
+	right: 0;
+	bottom: 0;
+	content: none !important;
+	position: absolute;
+	transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	border-bottom: none !important;
+	pointer-events: none;
+}

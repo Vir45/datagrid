@@ -68,8 +68,15 @@ export const fetchData = () => {
 	let newData;
 	const selectTypes = store.getState().dataTable.selectTypes;
 
-	if(selectTypes === 'student' || selectTypes === 'activist' || selectTypes === 'experienced student') {
-		const selectData = sortData.filter((item) => item.role === selectTypes);
+	if(selectTypes.includes('student') || selectTypes.includes('activist') || selectTypes.includes('experienced student')) {
+		const selectData = sortData.filter((item) => {
+			for(let select of selectTypes) {
+				if(item.role === select) {
+					return item;
+					continue;
+				}
+			}
+		});
 		newData = selectData.filter(item => item.isActive === true);
 	} else {
 		newData = sortData.filter(item => item.isActive === true)
@@ -86,8 +93,15 @@ export const fetchAllData = () => {
 
 	const selectTypes = store.getState().dataTable.selectTypes;
 
-	if(selectTypes === 'student' || selectTypes === 'activist' || selectTypes === 'experienced student') {
-		result = result.filter((item) => item.role === selectTypes);
+	if(selectTypes.includes('student') || selectTypes.includes('activist') || selectTypes.includes('experienced student')) {
+		result = sortData.filter((item) => {
+			for(let select of selectTypes) {
+				if(item.role === select) {
+					return item;
+					break;
+				}
+			}
+		});
 	}
 
 	return { type: Actions.FETCH_ALL_DATA_SUCCESS, payLoad: result };
@@ -118,13 +132,67 @@ export const sortTable = (property, direction) => {
 }
 
 
-export const selectRoleStudent = (property) => {
+export const sortShiftTable = (property, direction, nextProperty, nextDirection) => {
 	const students = store.getState().dataTable.students;
-	const newStudents = students.filter((item) => item.role === property);
-	const selectTypes = property;
-	return { type: Actions.TABLE_SELECT_ROLE, payLoad: {newStudents, selectTypes }}
+ 
+	if (direction === 'UP') {
+		students.sort(function (a, b) {
+			if (a[property] > b[property]) { 
+				return 1; 
+			} else if (a[property] < b[property]) { 
+				return -1; 
+			} else if(a[property] === b[property]) {
+			
+				if(nextDirection === 'UP') {
+					if (a[nextProperty] > b[nextProperty]) { return 1; }
+					if (a[nextProperty] < b[nextProperty]) { return -1; }
+					return 0;
+				} else if(nextDirection === 'DOWN') {
+					if (b[nextProperty] > a[nextProperty]) { return 1; }
+					if (b[nextProperty] < a[nextProperty]) { return -1; }
+					return 0;
+				}
+			}
+			return 0;
+		})
+	} else {
+		students.sort(function (a, b) {
+			if (b[property] < a[property]) { 
+				return -1; 
+			} if (b[property] > a[property]) { 
+				return 1; 
+			} else if(a[property] === b[property]) {
+				
+				if(nextDirection === 'UP') {
+					if (a[nextProperty] > b[nextProperty]) { return 1; }
+					if (a[nextProperty] < b[nextProperty]) { return -1}
+					return 0;
+				} else if(nextDirection === 'DOWN') {
+					if (b[nextProperty] > a[nextProperty]) { return 1; }
+					if (b[nextProperty] < a[nextProperty]) { return -1; }
+					return 0;
+				}
+			}
+		})
+	}
+	
+	return { type: Actions.TABLE_SHIFT_SORT_SUCCESS,  payLoad:  students };
 }
 
+
+export const selectRoleStudent = (properties) => {
+	const students = store.getState().dataTable.students;
+	const newStudents = students.filter((item) => {
+		for(let prop of properties) {
+			if(item.role === prop) {
+				return item;
+			  continue;
+			}
+		}
+	});
+	const selectTypes = properties;
+	return { type: Actions.TABLE_SELECT_ROLE, payLoad: {newStudents, selectTypes }}
+}
 
 
 export const StartselectRoleStudent = (property) => {
@@ -158,7 +226,6 @@ export const SearchForAllStudent = (text) => {
 
 	return { type: Actions.TABLE_ALL_SEARCH, search: result }
 }
-
 
 
 export const DeletStudent = (item) => {

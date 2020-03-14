@@ -8,9 +8,13 @@ let defaultTableState = {
 	sort: {
 		property: '',
 		direction: ''
-	}, //sortTypes
+	},
+	sortShift: {
+		property: '',
+		direction: ''
+	},
 	searchTerm: '',
-	selectTypes: '',
+	selectTypes: [],
 	deletedStudent: '',
 	errors: [],
 };
@@ -28,6 +32,8 @@ const dataTable = (state = defaultTableState, action) => {
 			return { ...state, students: action.payLoad.students, sort: action.payLoad.sort };
 		// case (Actions.TABLE_SORT_FAILURE):
 		// 	return { ...state, errors: action.payLoad };
+		case (Actions.TABLE_SHIFT_SORT_SUCCESS):
+			return { ...state, students: action.payLoad};
 		case (Actions.START_TABLE_SELECT_ROLE):
 			return { ...state, selectTypes: action.payLoad};
 		case (Actions.TABLE_SELECT_ROLE):
