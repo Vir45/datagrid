@@ -55,7 +55,6 @@ export default class FullList extends Component {
 	deletStudent = (item) => {
 		this.props.onDeletStudent(item);
 	}
-
 	
 	render() {
 		return (

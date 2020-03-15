@@ -20,7 +20,7 @@ function getAllСonditions(data) {
 
 	const deletedStudent = store.getState().dataTable.deletedStudent;
 
-	if(typeof deletedStudent === 'number' && deletedStudent > 0) {
+	if (typeof deletedStudent === 'number' && deletedStudent > 0) {
 		for (let i = 0; i < sortData.length; i++) {
 			if (sortData[i].id === deletedStudent) {
 				sortData.splice(i, 1);
@@ -60,16 +60,16 @@ function getAllСonditions(data) {
 
 	let intermediateResult = sortData;
 	const searchTerm = store.getState().dataTable.searchTerm;
-	let {property: propertySearch, text} = searchTerm;
+	let { property: propertySearch, text } = searchTerm;
 
-	if(propertySearch.length > 0 && text.length > 0) {
+	if (propertySearch.length > 0 && text.length > 0) {
 		intermediateResult = sortData.filter((item) => item[propertySearch].toLowerCase().indexOf(text) >= 0);
 	}
-	
+
 	let result = intermediateResult;
 	const searchinAllTable = store.getState().dataTable.searchinAllTable;
 
-	if(searchinAllTable.length > 0) {
+	if (searchinAllTable.length > 0) {
 		const searchStudents = [];
 		for (let student of intermediateResult) {
 			const arrOfDataStudent = Object.values(student);
@@ -94,11 +94,11 @@ export const fetchData = () => {
 	const sortData = getAllСonditions(data);
 	let newData;
 	const selectTypes = store.getState().dataTable.selectTypes;
-
-	if(selectTypes.includes('student') || selectTypes.includes('activist') || selectTypes.includes('experienced student')) {
+	/* eslint-disable */
+	if (selectTypes.includes('student') || selectTypes.includes('activist') || selectTypes.includes('experienced student')) {
 		const selectData = sortData.filter((item) => {
-			for(let select of selectTypes) {
-				if(item.role === select) {
+			for (let select of selectTypes) {
+				if (item.role === select) {
 					return item;
 				}
 			}
@@ -107,7 +107,7 @@ export const fetchData = () => {
 	} else {
 		newData = sortData.filter(item => item.isActive === true)
 	}
-	
+
 	return { type: Actions.FETCH_DATA_SUCCESS, payLoad: newData };
 }
 
@@ -119,10 +119,10 @@ export const fetchAllData = () => {
 
 	const selectTypes = store.getState().dataTable.selectTypes;
 
-	if(selectTypes.includes('student') || selectTypes.includes('activist') || selectTypes.includes('experienced student')) {
+	if (selectTypes.includes('student') || selectTypes.includes('activist') || selectTypes.includes('experienced student')) {
 		result = sortData.filter((item) => {
-			for(let select of selectTypes) {
-				if(item.role === select) {
+			for (let select of selectTypes) {
+				if (item.role === select) {
 					return item;
 				}
 			}
@@ -159,20 +159,20 @@ export const sortTable = (property, direction) => {
 
 export const sortShiftTable = (property, direction, nextProperty, nextDirection) => {
 	const students = store.getState().dataTable.students;
- 
+
 	if (direction === 'UP') {
 		students.sort(function (a, b) {
-			if (a[property] > b[property]) { 
-				return 1; 
-			} else if (a[property] < b[property]) { 
-				return -1; 
-			} else if(a[property] === b[property]) {
-			
-				if(nextDirection === 'UP') {
+			if (a[property] > b[property]) {
+				return 1;
+			} else if (a[property] < b[property]) {
+				return -1;
+			} else if (a[property] === b[property]) {
+
+				if (nextDirection === 'UP') {
 					if (a[nextProperty] > b[nextProperty]) { return 1; }
 					if (a[nextProperty] < b[nextProperty]) { return -1; }
 					return 0;
-				} else if(nextDirection === 'DOWN') {
+				} else if (nextDirection === 'DOWN') {
 					if (b[nextProperty] > a[nextProperty]) { return 1; }
 					if (b[nextProperty] < a[nextProperty]) { return -1; }
 					return 0;
@@ -182,17 +182,17 @@ export const sortShiftTable = (property, direction, nextProperty, nextDirection)
 		})
 	} else {
 		students.sort(function (a, b) {
-			if (b[property] < a[property]) { 
-				return -1; 
-			} if (b[property] > a[property]) { 
-				return 1; 
-			} else if(a[property] === b[property]) {
-				
-				if(nextDirection === 'UP') {
+			if (b[property] < a[property]) {
+				return -1;
+			} if (b[property] > a[property]) {
+				return 1;
+			} else if (a[property] === b[property]) {
+
+				if (nextDirection === 'UP') {
 					if (a[nextProperty] > b[nextProperty]) { return 1; }
-					if (a[nextProperty] < b[nextProperty]) { return -1}
+					if (a[nextProperty] < b[nextProperty]) { return -1 }
 					return 0;
-				} else if(nextDirection === 'DOWN') {
+				} else if (nextDirection === 'DOWN') {
 					if (b[nextProperty] > a[nextProperty]) { return 1; }
 					if (b[nextProperty] < a[nextProperty]) { return -1; }
 					return 0;
@@ -200,22 +200,22 @@ export const sortShiftTable = (property, direction, nextProperty, nextDirection)
 			}
 		})
 	}
-	
-	return { type: Actions.TABLE_SHIFT_SORT_SUCCESS,  payLoad:  students };
+
+	return { type: Actions.TABLE_SHIFT_SORT_SUCCESS, payLoad: students };
 }
 
 
 export const selectRoleStudent = (properties) => {
 	const students = store.getState().dataTable.students;
 	const newStudents = students.filter((item) => {
-		for(let prop of properties) {
-			if(item.role === prop) {
+		for (let prop of properties) {
+			if (item.role === prop) {
 				return item;
 			}
 		}
 	});
 	const selectTypes = properties;
-	return { type: Actions.TABLE_SELECT_ROLE, payLoad: {newStudents, selectTypes }}
+	return { type: Actions.TABLE_SELECT_ROLE, payLoad: { newStudents, selectTypes } }
 }
 
 
@@ -228,7 +228,7 @@ export const StartselectRoleStudent = (property) => {
 export const SearchStudent = (property, text) => {
 	const students = store.getState().dataTable.students;
 	let newStudents = students;
-	if(property.length > 0 && text.length > 0) {
+	if (property.length > 0 && text.length > 0) {
 		newStudents = students.filter((item) => item[property].toLowerCase().indexOf(text) >= 0);
 	}
 
@@ -236,7 +236,7 @@ export const SearchStudent = (property, text) => {
 		property,
 		text
 	}
-	return { type: Actions.TABLE_SEARCH, search: {newStudents, searchTerm} }
+	return { type: Actions.TABLE_SEARCH, search: { newStudents, searchTerm } }
 }
 
 
@@ -258,7 +258,7 @@ export const SearchForAllStudent = (text) => {
 
 	const searchinAllTable = text;
 
-	return { type: Actions.TABLE_ALL_SEARCH, search: {result, searchinAllTable} }
+	return { type: Actions.TABLE_ALL_SEARCH, search: { result, searchinAllTable } }
 }
 
 
@@ -272,7 +272,7 @@ export const DeletStudent = (item) => {
 	}
 
 	const deletedStudent = item;
-	return { type: Actions.TABLE_DELET_STUDENT, payLoad: {students, deletedStudent }}
+	return { type: Actions.TABLE_DELET_STUDENT, payLoad: { students, deletedStudent } }
 }
 
 export const DeletSelectedStudent = (item) => {
@@ -288,6 +288,6 @@ export const DeletSelectedStudent = (item) => {
 	}
 
 	const deletedStudent = item;
-	return { type: Actions.TABLE_DELET_SELECTED_STUDENT, payLoad: {students, deletedStudent } }
+	return { type: Actions.TABLE_DELET_SELECTED_STUDENT, payLoad: { students, deletedStudent } }
 }
 

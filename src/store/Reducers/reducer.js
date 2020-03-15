@@ -26,8 +26,6 @@ let defaultTableState = {
 
 const dataTable = (state = defaultTableState, action) => {
 	switch (action.type) {
-		case (Actions.FETCH_DATA):
-			return { ...state };
 		case (Actions.FETCH_DATA_SUCCESS):
 			return { ...state, students: action.payLoad };
 		case (Actions.TABLE_SORT_SUCCESS):

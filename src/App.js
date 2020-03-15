@@ -8,7 +8,6 @@ import PureTable from './Component/Table/PureTable';
 import './App.css';
 
 function App() {
-	// console.log(store.getState())
   return (
 		<Provider store={store}>
     <div className="App">

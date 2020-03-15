@@ -1,5 +1,4 @@
 import React from "react";
-// import search from '../../../Assets/Icon/search.svg';
 import SearchIcon from "@material-ui/icons/Search";
 
 class SearchTable extends React.Component {
@@ -32,11 +31,9 @@ class SearchTable extends React.Component {
 	}
 
 	getSearchData = (event) => {
-		// const activeButtonSearchIcon = event.target.closest('.search-block').previousSibling;
 		if (!this.state.search) {
 			this.props.onSearch('', '', event);
 			this.props.onMountData(event);
-			// activeButtonSearchIcon.querySelector('.MuiSvgIcon-colorAction').style.color = 'rgba(0, 0, 0, 0.54)';
 			return
 		}
 
@@ -44,10 +41,6 @@ class SearchTable extends React.Component {
 			this.props.onSearch('', '', event);
 			this.props.onMountData(event);
 		}
-
-		// const arrOfIcon = Array.from(document.body.querySelectorAll('.MuiSvgIcon-colorAction'));
-		// arrOfIcon.forEach(item => item.style.color = 'rgba(0, 0, 0, 0.54)');
-		// activeButtonSearchIcon.querySelector('.MuiSvgIcon-colorAction').style.color = '#3f51b5';
 		this.props.onSearch(this.props.filter, this.state.search.toLowerCase(), event);
 	}
 
@@ -55,13 +48,9 @@ class SearchTable extends React.Component {
 		this.setState({ search: '' });
 		this.props.onSearch('', '', event);
 		this.props.onMountData(event);
-		// const activeButtonSearchIcon = event.target.closest('.search-block').previousSibling;
-		// activeButtonSearchIcon.querySelector('.MuiSvgIcon-colorAction').style.color = 'rgba(0, 0, 0, 0.54)';
 	}
 
 	keyDown = (event) => {
-		// const activeButtonSearchIcon = event.target.closest('.search-block').previousSibling;
-
 		if (event.key !== 'Enter') {
 			return
 		}
@@ -69,7 +58,6 @@ class SearchTable extends React.Component {
 		if (!this.state.search) {
 			this.props.onSearch('', '', event);
 			this.props.onMountData(event);
-			// activeButtonSearchIcon.querySelector('.MuiSvgIcon-colorAction').style.color = 'rgba(0, 0, 0, 0.54)';
 			return
 		}
 
@@ -78,9 +66,6 @@ class SearchTable extends React.Component {
 			this.props.onMountData(event);
 		}
 
-		// const arrOfIcon = Array.from(document.body.querySelectorAll('.MuiSvgIcon-colorAction'));
-		// arrOfIcon.forEach(item => item.style.color = 'rgba(0, 0, 0, 0.54)');
-		// activeButtonSearchIcon.querySelector('.MuiSvgIcon-colorAction').style.color = '#3f51b5';
 		this.props.onSearch(this.props.filter, this.state.search.toLowerCase(), event);
 	}
 

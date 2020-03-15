@@ -10,7 +10,6 @@ const Row = ({ style, data, onDeletStudent, activeColumn }) => {
 	const isActive = data.isActive ? 'student' : 'student disactive';
 	const url = data.avatar;
 
-
 	useEffect(() => {
 		const student = Array.from(document.body.querySelectorAll('.student'));
 		const arrOfActive = Array.from(document.body.querySelectorAll('.active-column'));
@@ -85,8 +84,6 @@ const Row = ({ style, data, onDeletStudent, activeColumn }) => {
 		</div>
 	)
 }
-
-
 
 
 export default Row;

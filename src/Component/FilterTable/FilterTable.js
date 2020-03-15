@@ -38,14 +38,12 @@ class FilterlTable extends React.Component {
 	}
 
 	getActive = (elem, activeDirection) => {
-
 		const arr = Array.from(document.body.querySelector('.filter-table').children);
 		arr.forEach(item => { if (item.classList.contains('active')) item.classList.remove('active') });
 		arr.forEach(item => { if (item.classList.contains('shift-active')) item.classList.remove('shift-active') });
-
 		elem.classList.add('active');
-
 		const arrOfDirection = Array.from(elem.querySelector('.column-direction').children);
+
 		for (let item of arrOfDirection) {
 			if (item.classList.contains('active-direction')) {
 				item.classList.remove('active-direction')
@@ -90,7 +88,6 @@ class FilterlTable extends React.Component {
 
 			this.props.onSortSfift(activeSort, activeDirection, newActiveactiveSort, newActiveDirection);
 			event.target.blur();
-
 			return;
 		}
 
@@ -123,7 +120,6 @@ class FilterlTable extends React.Component {
 		}
 
 		this.props.onStartSelect(value)
-
 		document.body.querySelector('.role-filter .column-direction').style.border = '1px solid #1890ff '
 
 		if (this.state.activeStudent) {
@@ -133,7 +129,6 @@ class FilterlTable extends React.Component {
 		}
 
 		this.props.onSelect(value);
-
 	}
 
 	getAllstudents = () => {
@@ -152,7 +147,6 @@ class FilterlTable extends React.Component {
 		const searchBlock = parent.querySelector('.search-block');
 		if (searchBlock.style.display === '') {
 			searchBlock.style.display = 'block';
-
 		} else {
 			searchBlock.style.display = ''
 		}
@@ -180,7 +174,7 @@ class FilterlTable extends React.Component {
 	}
 
 	render() {
-		
+
 		return (
 			<div>
 				<div className="row-1">
