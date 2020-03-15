@@ -13,7 +13,11 @@ let defaultTableState = {
 		property: '',
 		direction: ''
 	},
-	searchTerm: '',
+	searchTerm: {
+		property: '',
+		text: '',
+	},
+	searchinAllTable: '',
 	selectTypes: [],
 	deletedStudent: '',
 	errors: [],
@@ -26,12 +30,8 @@ const dataTable = (state = defaultTableState, action) => {
 			return { ...state };
 		case (Actions.FETCH_DATA_SUCCESS):
 			return { ...state, students: action.payLoad };
-		// case (Actions.TABLE_SORT):
-		// 	return { ...state, sort: action.payLoad };
 		case (Actions.TABLE_SORT_SUCCESS):
 			return { ...state, students: action.payLoad.students, sort: action.payLoad.sort };
-		// case (Actions.TABLE_SORT_FAILURE):
-		// 	return { ...state, errors: action.payLoad };
 		case (Actions.TABLE_SHIFT_SORT_SUCCESS):
 			return { ...state, students: action.payLoad};
 		case (Actions.START_TABLE_SELECT_ROLE):
@@ -41,9 +41,9 @@ const dataTable = (state = defaultTableState, action) => {
 		case (Actions.FETCH_ALL_DATA_SUCCESS):
 			return { ...state, students: action.payLoad };
 		case (Actions.TABLE_SEARCH):
-			return { ...state, students: action.search };
+			return { ...state, students: action.search.newStudents, searchTerm: action.search.searchTerm };
 		case (Actions.TABLE_ALL_SEARCH):
-			return { ...state, students: action.search };
+			return { ...state, students: action.search.result, searchinAllTable: action.search.searchinAllTable };
 		case (Actions.TABLE_DELET_STUDENT):
 			return { ...state, students: action.payLoad.students, deletedStudent: action.payLoad.deletedStudent };
 		case (Actions.TABLE_DELET_SELECTED_STUDENT):

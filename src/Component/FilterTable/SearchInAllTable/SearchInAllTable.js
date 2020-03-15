@@ -6,7 +6,7 @@ class SearchInAllTable extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			search: '',
+			search: this.props.searchinAllTable,
 		}
 
 		this.myRef = React.createRef();
@@ -22,11 +22,13 @@ class SearchInAllTable extends React.Component {
 
 	getSearchData = (event) => {
 		if(!this.state.search) {
+			this.props.onAllSerch('');
 			this.props.onMountData(event);
 			return
 		}
 
 		if(this.state.search.length > 0) {
+			this.props.onAllSerch('');
 			this.props.onMountData(event);
 		}
 
@@ -34,7 +36,8 @@ class SearchInAllTable extends React.Component {
 	}
 
 	getAllData = (event) => {
-		this.setState({search: ''})
+		this.setState({search: ''});
+		this.props.onAllSerch('');
 		this.props.onMountData(event);
 	}
 
@@ -44,11 +47,13 @@ class SearchInAllTable extends React.Component {
 		 }
 
 		 if(!this.state.search) {
+			this.props.onAllSerch('');
 			this.props.onMountData(event);
 			return
 		}
 
 		if(this.state.search.length > 0) {
+			this.props.onAllSerch('');
 			this.props.onMountData(event);
 		}
 

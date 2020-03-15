@@ -56,14 +56,41 @@ function getAllСonditions(data) {
 				return 0;
 			})
 		}
-	} 
+	}
 
-	return sortData;
+	let intermediateResult = sortData;
+	const searchTerm = store.getState().dataTable.searchTerm;
+	let {property: propertySearch, text} = searchTerm;
+
+	if(propertySearch.length > 0 && text.length > 0) {
+		intermediateResult = sortData.filter((item) => item[propertySearch].toLowerCase().indexOf(text) >= 0);
+	}
+	
+	let result = intermediateResult;
+	const searchinAllTable = store.getState().dataTable.searchinAllTable;
+
+	if(searchinAllTable.length > 0) {
+		const searchStudents = [];
+		for (let student of intermediateResult) {
+			const arrOfDataStudent = Object.values(student);
+			arrOfDataStudent.forEach(item => {
+				if (typeof item === 'string') {
+					if (item.toLowerCase().indexOf(searchinAllTable) >= 0) {
+						if (!searchStudents.includes(student)) {
+							searchStudents.push(student)
+						}
+					}
+				}
+			})
+		}
+		result = searchStudents;
+	}
+
+	return result;
 }
 
 
 export const fetchData = () => {
-	
 	const sortData = getAllСonditions(data);
 	let newData;
 	const selectTypes = store.getState().dataTable.selectTypes;
@@ -73,7 +100,6 @@ export const fetchData = () => {
 			for(let select of selectTypes) {
 				if(item.role === select) {
 					return item;
-					continue;
 				}
 			}
 		});
@@ -98,7 +124,6 @@ export const fetchAllData = () => {
 			for(let select of selectTypes) {
 				if(item.role === select) {
 					return item;
-					break;
 				}
 			}
 		});
@@ -186,7 +211,6 @@ export const selectRoleStudent = (properties) => {
 		for(let prop of properties) {
 			if(item.role === prop) {
 				return item;
-			  continue;
 			}
 		}
 	});
@@ -203,8 +227,16 @@ export const StartselectRoleStudent = (property) => {
 
 export const SearchStudent = (property, text) => {
 	const students = store.getState().dataTable.students;
-	const newStudents = students.filter((item) => item[property].toLowerCase().indexOf(text) >= 0);
-	return { type: Actions.TABLE_SEARCH, search: newStudents }
+	let newStudents = students;
+	if(property.length > 0 && text.length > 0) {
+		newStudents = students.filter((item) => item[property].toLowerCase().indexOf(text) >= 0);
+	}
+
+	const searchTerm = {
+		property,
+		text
+	}
+	return { type: Actions.TABLE_SEARCH, search: {newStudents, searchTerm} }
 }
 
 
@@ -224,7 +256,9 @@ export const SearchForAllStudent = (text) => {
 		})
 	}
 
-	return { type: Actions.TABLE_ALL_SEARCH, search: result }
+	const searchinAllTable = text;
+
+	return { type: Actions.TABLE_ALL_SEARCH, search: {result, searchinAllTable} }
 }
 
 

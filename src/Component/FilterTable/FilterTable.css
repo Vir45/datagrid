@@ -137,20 +137,6 @@
   padding: 2px;
 }
 
-/* .select-role {
-	width: 106px;
-	border: none;
-	font-weight: 700;
-	font-size: 15px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-.active-select {
-	border: 1px solid #1890ff;
-} */
-
 .button-search {
 	border: none;
 	background: none;
@@ -162,23 +148,23 @@
 }
 
 .name-filter {
-	width: 14%;
+	width: 15%;
 }
 
-.github-filter {
-	width: 21.5%;
+.githubId-filter {
+	width: 19.5%;
 }
 
 .locationName-filter {
-	width: 9%;
+	width: 11.5%;
 }
 
 .role-filter {
-	width: 14.5%;
+	width: 15%;
 }
 
 .date-filter {
-	width: 12%;
+	width: 9.5%;
 }
 
 .score-filter {

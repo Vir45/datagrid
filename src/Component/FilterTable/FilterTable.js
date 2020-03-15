@@ -14,7 +14,27 @@ class FilterlTable extends React.Component {
 			activeFilter: '',
 			direction: '',
 			activeStudent: 'true',
+			activeSearch: {
+				property: this.props.searchTerm.property,
+				text: this.props.searchTerm.text,
+			}
 		}
+	}
+
+	componentDidMount() {
+		let { property, direction } = this.props.sort;
+		const arr = Array.from(document.body.querySelector('.filter-table').children);
+		arr.forEach(item => {
+			if (item.classList[0].includes(property)) {
+				item.classList.add('active');
+				const arrOfDirection = Array.from(item.querySelector('.column-direction').children);
+				for (let item of arrOfDirection) {
+					if (item.value.split(', ')[1] === direction) {
+						item.classList.add('active-direction')
+					}
+				}
+			}
+		})
 	}
 
 	getActive = (elem, activeDirection) => {
@@ -43,7 +63,6 @@ class FilterlTable extends React.Component {
 	startSort = (event) => {
 
 		if (event.shiftKey && this.state.direction.length > 0) {
-
 			const activeSort = this.state.activeFilter;
 			const activeDirection = this.state.direction;
 			let target = event.target.closest('button');
@@ -52,9 +71,8 @@ class FilterlTable extends React.Component {
 			const direction = target.value.split(', ');
 			const newActiveactiveSort = direction[0];
 			const newActiveDirection = direction[1];
-		
-      const arr = Array.from(document.body.querySelector('.filter-table').children);
-		  arr.forEach(item => { if (item.classList.contains('shift-active')) item.classList.remove('shift-active') });
+			const arr = Array.from(document.body.querySelector('.filter-table').children);
+			arr.forEach(item => { if (item.classList.contains('shift-active')) item.classList.remove('shift-active') });
 			newActiveElem.classList.add('shift-active');
 			const arrOfDirection = Array.from(newActiveElem.querySelector('.column-direction').children);
 
@@ -89,7 +107,7 @@ class FilterlTable extends React.Component {
 
 	startSelect = (value) => {
 
-		if(value.length === 0) {
+		if (value.length === 0) {
 			value = ["all students"];
 		}
 
@@ -100,14 +118,13 @@ class FilterlTable extends React.Component {
 			} else {
 				this.props.onMountAll();
 			}
-			document.body.querySelector('.role-filter .column-direction').style.border ='none'
+			document.body.querySelector('.role-filter .column-direction').style.border = 'none'
 			return
 		}
 
 		this.props.onStartSelect(value)
 
-		document.body.querySelector('.role-filter .column-direction').style.border ='1px solid #1890ff '
-		// event.target.classList.add('active-select');
+		document.body.querySelector('.role-filter .column-direction').style.border = '1px solid #1890ff '
 
 		if (this.state.activeStudent) {
 			this.props.onMount();
@@ -145,6 +162,12 @@ class FilterlTable extends React.Component {
 	onSearchStudent = (property, text, event) => {
 		event.stopPropagation();
 		this.props.onSearch(property, text);
+		this.setState({
+			activeSearch: {
+				property,
+				text,
+			}
+		})
 	}
 
 	getData = (event) => {
@@ -157,12 +180,12 @@ class FilterlTable extends React.Component {
 	}
 
 	render() {
-
+		
 		return (
 			<div>
 				<div className="row-1">
 					<Switches onTrue={this.getActivestudents} onFalse={this.getAllstudents} />
-					<SearchInAllTable onAllSerch={this.props.onAllSearch} onMountData={this.getData} />
+					<SearchInAllTable onAllSerch={this.props.onAllSearch} onMountData={this.getData} searchinAllTable={this.props.searchinAllTable} />
 				</div>
 				<div className="filter-table">
 					<div className="position-filter" onClick={this.startSort}>
@@ -181,11 +204,11 @@ class FilterlTable extends React.Component {
 							</div>
 						</div>
 						<div className="column-search">
-							<SearchTable getActive={this.serchClick} filter={'name'} onSearch={this.onSearchStudent} onMountData={this.getData} />
+							<SearchTable getActive={this.serchClick} filter={'name'} onSearch={this.onSearchStudent} onMountData={this.getData} activeSearch={this.state.activeSearch} />
 						</div>
 					</div>
 
-					<div className="github-filter" onClick={this.startSort}>
+					<div className="githubId-filter" onClick={this.startSort}>
 						<div className="about-block">
 							<p className="column-name">GitHub</p>
 							<div className="column-direction">
@@ -194,7 +217,7 @@ class FilterlTable extends React.Component {
 							</div>
 						</div>
 						<div className="column-search">
-							<SearchTable getActive={this.serchClick} filter={'githubId'} onSearch={this.onSearchStudent} onMountData={this.getData} />
+							<SearchTable getActive={this.serchClick} filter={'githubId'} onSearch={this.onSearchStudent} onMountData={this.getData} activeSearch={this.state.activeSearch} />
 						</div>
 					</div>
 
@@ -217,7 +240,7 @@ class FilterlTable extends React.Component {
 							</div>
 						</div>
 						<div className="column-search">
-							<SearchTable getActive={this.serchClick} filter={'locationName'} onSearch={this.onSearchStudent} onMountData={this.getData} />
+							<SearchTable getActive={this.serchClick} filter={'locationName'} onSearch={this.onSearchStudent} onMountData={this.getData} activeSearch={this.state.activeSearch} />
 						</div>
 					</div>
 
@@ -225,12 +248,6 @@ class FilterlTable extends React.Component {
 						<div className="about-block">
 							<div className="column-direction">
 								<MultipleSelect onselect={this.startSelect} />
-								{/* <select onChange={this.startSelect} className="select-role">
-									<option value="all students">all students</option>
-									<option value="student">student</option>
-									<option value="activist">activist</option>
-									<option value="experienced student">experienced student</option>
-								</select> */}
 							</div>
 						</div>
 					</div>

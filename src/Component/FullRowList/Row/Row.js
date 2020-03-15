@@ -2,17 +2,16 @@ import React, {useEffect} from "react";
 import './Row.css';
 import CheckTwoToneIcon from '@material-ui/icons/CheckTwoTone';
 import ClearTwoToneIcon from '@material-ui/icons/ClearTwoTone';
-// import LetterAvatars from './LetterAvatar/Avatar';
+
 
 const Row = ({ style, data, onDeletStudent, activeColumn }) => {
 	const formatter = new Intl.DateTimeFormat("ru");
 	const adress = `mailto:${data.githubId}`;
 	const isActive = data.isActive ? 'student' : 'student disactive';
 	const url = data.avatar;
-	// const letterForAvatar = data.name.split(' ').map(item => item[0].toUpperCase()).join('').slice(0, 2);
+
 
 	useEffect(() => {
-		
 		const student = Array.from(document.body.querySelectorAll('.student'));
 		const arrOfActive = Array.from(document.body.querySelectorAll('.active-column'));
 		arrOfActive.forEach(item => item.classList.remove('active-column'));
@@ -74,7 +73,7 @@ const Row = ({ style, data, onDeletStudent, activeColumn }) => {
 			<div className="student-score">{data.score}</div>
 			<div className="student-locationName">{data.locationName}</div>
 			<div className="student-role">{data.role}</div>
-			<div className="student-date">{formatter.format(data.date)}</div>
+			<div className="student-date">{String(formatter.format(data.date))}</div>
 			<div className="student-companyName">{data.companyName}</div>
 			<div className='student-deleted'>
 				<p>Deleted student?</p>

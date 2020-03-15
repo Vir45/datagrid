@@ -3,6 +3,13 @@ import { connect } from 'react-redux';
 import FilterlTable from '../Component/FilterTable/FilterTable';
 import { sortTable, selectRoleStudent, fetchData, fetchAllData, SearchStudent, SearchForAllStudent, StartselectRoleStudent, sortShiftTable } from '../store/Action/action';
 
+const mapStateToProps = state => {
+	return {
+		sort: state.dataTable.sort,
+		searchinAllTable: state.dataTable.searchinAllTable,
+		searchTerm: state.dataTable.searchTerm,
+	}
+};
 
 const mapDispatchToProps = dispatch => ({
 	onSort: (property, direction) => dispatch(sortTable(property, direction)),
@@ -15,6 +22,6 @@ const mapDispatchToProps = dispatch => ({
 	onSortSfift: (property, direction, nextProperty, nextDirection) => dispatch(sortShiftTable(property, direction, nextProperty, nextDirection)),
 })
 
-const ConnectFilterlTable = connect(null, mapDispatchToProps)(FilterlTable)
+const ConnectFilterlTable = connect(mapStateToProps, mapDispatchToProps)(FilterlTable)
 
 export default ConnectFilterlTable;
