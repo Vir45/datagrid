@@ -1,7 +1,7 @@
 .filter-table {
 	display: flex;
 	justify-content: flex-start;
-	width: 1450px;
+	width: 1200px;
 	padding: 6px;
 	box-sizing: border-box;
 	font-size: 15px;
@@ -11,6 +11,7 @@
 }
 
 .row-1 {
+	width: 1200px;
 	margin-bottom: 15px;
 	display: flex;
 	justify-content: space-between;
@@ -68,12 +69,12 @@
 }
 
 .search-button-block {
-	margin-top: 5px;
+	margin-top: 10px;
 }
 
 .search-button-block-search {
 	margin-right: 5px;
-	width: 80px;
+	width: 75px;
 	height: 25px;
 	border: none;
 	background-color:#1890ff;
@@ -83,7 +84,7 @@
 
 .search-button-block-reset {
 	margin-right: 5px;
-	width: 80px;
+	width: 75px;
 	height: 25px;
 	border: none;
 	background-color:#A9A9A9;
@@ -164,7 +165,7 @@
 }
 
 .date-filter {
-	width: 9.5%;
+	width: 9%;
 }
 
 .score-filter {

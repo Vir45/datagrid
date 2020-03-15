@@ -17,12 +17,14 @@ class FilterlTable extends React.Component {
 			activeSearch: {
 				property: this.props.searchTerm.property,
 				text: this.props.searchTerm.text,
-			}
+			},
+			loading: true,
 		}
 	}
 
 	componentDidMount() {
 		let { property, direction } = this.props.sort;
+		if(property.length > 0 && direction.length > 0) {
 		const arr = Array.from(document.body.querySelector('.filter-table').children);
 		arr.forEach(item => {
 			if (item.classList[0].includes(property)) {
@@ -35,6 +37,7 @@ class FilterlTable extends React.Component {
 				}
 			}
 		})
+	}
 	}
 
 	getActive = (elem, activeDirection) => {
