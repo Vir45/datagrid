@@ -291,3 +291,5 @@ export const DeletSelectedStudent = (item) => {
 	return { type: Actions.TABLE_DELET_SELECTED_STUDENT, payLoad: { students, deletedStudent } }
 }
 
+
+

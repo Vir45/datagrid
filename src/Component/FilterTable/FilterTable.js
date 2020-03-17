@@ -24,20 +24,20 @@ class FilterlTable extends React.Component {
 
 	componentDidMount() {
 		let { property, direction } = this.props.sort;
-		if(property.length > 0 && direction.length > 0) {
-		const arr = Array.from(document.body.querySelector('.filter-table').children);
-		arr.forEach(item => {
-			if (item.classList[0].includes(property)) {
-				item.classList.add('active');
-				const arrOfDirection = Array.from(item.querySelector('.column-direction').children);
-				for (let item of arrOfDirection) {
-					if (item.value.split(', ')[1] === direction) {
-						item.classList.add('active-direction')
+		if (property.length > 0 && direction.length > 0) {
+			const arr = Array.from(document.body.querySelector('.filter-table').children);
+			arr.forEach(item => {
+				if (item.classList[0].includes(property)) {
+					item.classList.add('active');
+					const arrOfDirection = Array.from(item.querySelector('.column-direction').children);
+					for (let item of arrOfDirection) {
+						if (item.value.split(', ')[1] === direction) {
+							item.classList.add('active-direction')
+						}
 					}
 				}
-			}
-		})
-	}
+			})
+		}
 	}
 
 	getActive = (elem, activeDirection) => {
@@ -176,12 +176,32 @@ class FilterlTable extends React.Component {
 		}
 	}
 
+	toggled(event) {
+		let value = event.target.closest('button').value;
+		const arrOfValue = Array.from(document.body.querySelectorAll('.' + value));
+		arrOfValue.forEach(item => {item.classList.toggle('dis-active')});
+		const filter = document.body.querySelector('.' + value.split('-')[1] + '-filter');
+		filter.classList.toggle('dis-active');
+		if(filter.classList.contains('dis-active')) {
+			event.target.closest('button').style.color = 'red';
+		} else {
+			event.target.closest('button').style.color = '#1890ff';
+		}
+		event.currentTarget.blur();
+	}
+
 	render() {
 
 		return (
 			<div>
 				<div className="row-1">
 					<Switches onTrue={this.getActivestudents} onFalse={this.getAllstudents} />
+					<div className='toogle-buttons'>
+						<p>Toggle column:</p>
+						<button onClick={this.toggled} value="student-githubId">GitHubId</button>
+						<button onClick={this.toggled} value="student-locationName">City</button>
+						<button onClick={this.toggled} value="student-date">Date</button>
+					</div>
 					<SearchInAllTable onAllSerch={this.props.onAllSearch} onMountData={this.getData} searchinAllTable={this.props.searchinAllTable} />
 				</div>
 				<div className="filter-table">

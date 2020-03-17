@@ -61,7 +61,7 @@ export default class FullList extends Component {
 			<div onClick={this.getSomeStudents} className='full-list-of-students'>
 
 				{this.props.data.students.map((item, index) => (<Row data={item} key={index} onDeletStudent={this.deletStudent} activeColumn={this.props.active} />))}
-         
+
 				<div className='arr-student-deleted'>
 					<p>Deleted selected students?</p>
 					<div className="button-deleted-block">
