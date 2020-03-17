@@ -179,10 +179,11 @@ class FilterlTable extends React.Component {
 	toggled(event) {
 		let value = event.target.closest('button').value;
 		const arrOfValue = Array.from(document.body.querySelectorAll('.' + value));
-		arrOfValue.forEach(item => {item.classList.toggle('dis-active')});
+		arrOfValue.forEach(item => { item.classList.toggle('dis-active') });
 		const filter = document.body.querySelector('.' + value.split('-')[1] + '-filter');
 		filter.classList.toggle('dis-active');
-		if(filter.classList.contains('dis-active')) {
+
+		if (filter.classList.contains('dis-active')) {
 			event.target.closest('button').style.color = 'red';
 		} else {
 			event.target.closest('button').style.color = '#1890ff';
