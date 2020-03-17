@@ -8,7 +8,7 @@ const PureTable = () => (
 	<List
 		className="List"
 		height={600}
-		width={1450}
+		width={1200}
 		itemCount={1}
 		itemSize={80}
 	>
@@ -17,5 +17,7 @@ const PureTable = () => (
 )
 
 
-export default PureTable;
 
+
+
+export default PureTable;

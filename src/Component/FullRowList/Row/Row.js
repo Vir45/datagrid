@@ -1,27 +1,13 @@
-import React, {useEffect} from "react";
+import React from "react";
 import './Row.css';
 import CheckTwoToneIcon from '@material-ui/icons/CheckTwoTone';
 import ClearTwoToneIcon from '@material-ui/icons/ClearTwoTone';
 
 
 const Row = ({ style, data, onDeletStudent, activeColumn }) => {
-	const formatter = new Intl.DateTimeFormat("ru");
 	const adress = `mailto:${data.githubId}`;
 	const isActive = data.isActive ? 'student' : 'student disactive';
 	const url = data.avatar;
-
-
-	useEffect(() => {
-		const student = Array.from(document.body.querySelectorAll('.student'));
-		const arrOfActive = Array.from(document.body.querySelectorAll('.active-column'));
-		arrOfActive.forEach(item => item.classList.remove('active-column'));
-
-		if(activeColumn.length > 0) {
-			const arrBlockAboutStudent = student.map((item) => Array.from(item.children).filter((item) => item.classList[0].includes(activeColumn) === true));
-			arrBlockAboutStudent.forEach(item => item[0].classList.add('active-column'));
-		}
-	})
-
 	const getActive = (event) => {
 		if (event.target.closest('a')) {
 			return
@@ -67,14 +53,14 @@ const Row = ({ style, data, onDeletStudent, activeColumn }) => {
 
 	return (
 		<div className={isActive} style={style} onClick={getActive} id={data.id}>
-			<div className="student-position">{data.position}</div>
-			<div className="student-name"><img src={url} alt='avatar'></img>{data.name}</div>
-			<div className="student-githubId"><a href={adress}>{data.githubId}</a></div>
-			<div className="student-score">{data.score}</div>
-			<div className="student-locationName">{data.locationName}</div>
+			<Position data={data.position} active={activeColumn} name='position'/>
+			<Name data={data.name} active={activeColumn} name='name' url={url}/>
+			<GithubId data={data.githubId} active={activeColumn} name='githubId' href={adress}/>
+			<Score data={data.score} active={activeColumn} name='score'/>
+			<LocationName data={data.locationName} active={activeColumn} name='locationName'/>
 			<div className="student-role">{data.role}</div>
-			<div className="student-date">{String(formatter.format(data.date))}</div>
-			<div className="student-companyName">{data.companyName}</div>
+			<Date data={data.date} active={activeColumn} name='date'/>
+			<CompanyName data={data.companyName} active={activeColumn} name='companyName'/>
 			<div className='student-deleted'>
 				<p>Deleted student?</p>
 				<div className="button-deleted-block">
@@ -84,6 +70,115 @@ const Row = ({ style, data, onDeletStudent, activeColumn }) => {
 			</div>
 		</div>
 	)
+}
+
+
+class Position extends React.Component {
+	render() {
+		let active;
+		if(this.props.name === this.props.active) {
+       active = 'active-column';
+		} else {
+			active = '';
+		}
+
+		return (
+			<div className="student-position" data-active={active}>{this.props.data}</div>
+		)
+	}
+}
+
+class Name extends React.Component {
+	render() {
+		let active;
+		if(this.props.name === this.props.active) {
+       active = 'active-column';
+		} else {
+			active = '';
+		}
+
+		return (
+			<div className="student-name" data-active={active}><img src={this.props.url} alt='avatar'></img>{this.props.data}</div>
+		)
+	}
+}
+
+class GithubId extends React.Component {
+	render() {
+		let active;
+		if(this.props.name === this.props.active) {
+       active = 'active-column';
+		} else {
+			active = '';
+		}
+
+		return (
+			<div className="student-githubId" data-active={active}><a href={this.props.href}>{this.props.data}</a></div>
+		)
+	}
+}
+
+
+class Score extends React.Component {
+	render() {
+		let active;
+		if(this.props.name === this.props.active) {
+       active = 'active-column';
+		} else {
+			active = '';
+		}
+
+		return (
+			<div className="student-score" data-active={active}>{this.props.data}</div>
+		)
+	}
+}
+
+class LocationName extends React.Component {
+	render() {
+		let active;
+		if(this.props.name === this.props.active) {
+       active = 'active-column';
+		} else {
+			active = '';
+		}
+
+		return (
+			<div className="student-locationName" data-active={active}>{this.props.data}</div>
+		)
+	}
+}
+
+
+class Date extends React.Component {
+	render() {
+		const formatter = new Intl.DateTimeFormat("ru");
+		let active;
+		if(this.props.name === this.props.active) {
+       active = 'active-column';
+		} else {
+			active = '';
+		}
+
+		return (
+			<div className="student-date" data-active={active}>{String(formatter.format(this.props.data))}</div>
+		)
+	}
+}
+
+class CompanyName extends React.Component {
+	render() {
+		let active;
+		if(this.props.name === this.props.active) {
+       active = 'active-column';
+		} else {
+			active = '';
+		}
+
+		return (
+			<div className="student-companyName" data-active={active}>{this.props.data}</div>
+		)
+	}
 }
 
 

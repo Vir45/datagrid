@@ -28,6 +28,6 @@ export const makeFake = (idx) => {
   };
 };
 
-const data = [...new Array(80)].map((item, index) => makeFake(index+1));
+const data = [...new Array(1000)].map((item, index) => makeFake(index+1));
 
 export default data;

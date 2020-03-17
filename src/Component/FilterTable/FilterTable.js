@@ -17,35 +17,36 @@ class FilterlTable extends React.Component {
 			activeSearch: {
 				property: this.props.searchTerm.property,
 				text: this.props.searchTerm.text,
-			}
+			},
+			loading: true,
 		}
 	}
 
 	componentDidMount() {
 		let { property, direction } = this.props.sort;
-		const arr = Array.from(document.body.querySelector('.filter-table').children);
-		arr.forEach(item => {
-			if (item.classList[0].includes(property)) {
-				item.classList.add('active');
-				const arrOfDirection = Array.from(item.querySelector('.column-direction').children);
-				for (let item of arrOfDirection) {
-					if (item.value.split(', ')[1] === direction) {
-						item.classList.add('active-direction')
+		if (property.length > 0 && direction.length > 0) {
+			const arr = Array.from(document.body.querySelector('.filter-table').children);
+			arr.forEach(item => {
+				if (item.classList[0].includes(property)) {
+					item.classList.add('active');
+					const arrOfDirection = Array.from(item.querySelector('.column-direction').children);
+					for (let item of arrOfDirection) {
+						if (item.value.split(', ')[1] === direction) {
+							item.classList.add('active-direction')
+						}
 					}
 				}
-			}
-		})
+			})
+		}
 	}
 
 	getActive = (elem, activeDirection) => {
-
 		const arr = Array.from(document.body.querySelector('.filter-table').children);
 		arr.forEach(item => { if (item.classList.contains('active')) item.classList.remove('active') });
 		arr.forEach(item => { if (item.classList.contains('shift-active')) item.classList.remove('shift-active') });
-
 		elem.classList.add('active');
-
 		const arrOfDirection = Array.from(elem.querySelector('.column-direction').children);
+
 		for (let item of arrOfDirection) {
 			if (item.classList.contains('active-direction')) {
 				item.classList.remove('active-direction')
@@ -90,7 +91,6 @@ class FilterlTable extends React.Component {
 
 			this.props.onSortSfift(activeSort, activeDirection, newActiveactiveSort, newActiveDirection);
 			event.target.blur();
-
 			return;
 		}
 
@@ -123,7 +123,6 @@ class FilterlTable extends React.Component {
 		}
 
 		this.props.onStartSelect(value)
-
 		document.body.querySelector('.role-filter .column-direction').style.border = '1px solid #1890ff '
 
 		if (this.state.activeStudent) {
@@ -133,7 +132,6 @@ class FilterlTable extends React.Component {
 		}
 
 		this.props.onSelect(value);
-
 	}
 
 	getAllstudents = () => {
@@ -152,7 +150,6 @@ class FilterlTable extends React.Component {
 		const searchBlock = parent.querySelector('.search-block');
 		if (searchBlock.style.display === '') {
 			searchBlock.style.display = 'block';
-
 		} else {
 			searchBlock.style.display = ''
 		}
@@ -179,12 +176,32 @@ class FilterlTable extends React.Component {
 		}
 	}
 
+	toggled(event) {
+		let value = event.target.closest('button').value;
+		const arrOfValue = Array.from(document.body.querySelectorAll('.' + value));
+		arrOfValue.forEach(item => {item.classList.toggle('dis-active')});
+		const filter = document.body.querySelector('.' + value.split('-')[1] + '-filter');
+		filter.classList.toggle('dis-active');
+		if(filter.classList.contains('dis-active')) {
+			event.target.closest('button').style.color = 'red';
+		} else {
+			event.target.closest('button').style.color = '#1890ff';
+		}
+		event.currentTarget.blur();
+	}
+
 	render() {
-		
+
 		return (
 			<div>
 				<div className="row-1">
 					<Switches onTrue={this.getActivestudents} onFalse={this.getAllstudents} />
+					<div className='toogle-buttons'>
+						<p>Toggle column:</p>
+						<button onClick={this.toggled} value="student-githubId">GitHubId</button>
+						<button onClick={this.toggled} value="student-locationName">City</button>
+						<button onClick={this.toggled} value="student-date">Date</button>
+					</div>
 					<SearchInAllTable onAllSerch={this.props.onAllSearch} onMountData={this.getData} searchinAllTable={this.props.searchinAllTable} />
 				</div>
 				<div className="filter-table">

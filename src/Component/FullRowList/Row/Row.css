@@ -36,12 +36,12 @@
 	border-bottom: 0.2px solid #DCDCDC;
 }
 
-.active-column {
+[data-active='active-column'] {
 	color: #1890ff;
 	border-bottom: 0.2px solid #DCDCDC;
 }
 
-.active-column a {
+[data-active='active-column'] a {
 	color: #1890ff !important;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .student-date {
-	width: 10%;
+	width: 9%;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
@@ -143,11 +143,11 @@
 }
 
 .student-companyName {
-	width: 17%;
+	width: 18%;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
